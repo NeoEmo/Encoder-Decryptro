@@ -1,13 +1,18 @@
 package org.example;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Main {
 
-    static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        System.setProperty("console.encoding", "utf-8");
         Text text = new Text();
         System.out.println(text.hello());
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in, "UTF-8");
         String userAnswer = scanner.nextLine();
         boolean isValid = false;
         while (!isValid) {
@@ -34,16 +39,24 @@ public class Main {
                 case "Decrypt" -> {
                     System.out.println(text.askMessage());
                     String userMessage = scanner.nextLine();
+                    System.out.println("DEBUG: Получено сообщение: '" + userMessage + "'");
+                    System.out.println("DEBUG: Длина: " + userMessage.length());
+
                     System.out.println(text.askKey());
                     String userKey = scanner.nextLine();
+                    System.out.println("DEBUG: Получен ключ: '" + userKey + "'");
+
                     Decrypt messageDecrypt = new Decrypt(userMessage, userKey);
+
+                    System.out.println("DEBUG: Ключ смещения: " + messageDecrypt.getDecryptKey());
+                    System.out.println("DEBUG: Расшифрованное сообщение: '" + messageDecrypt.getDecryptedMessage() + "'");
 
                     System.out.println(text.generatingMessage());
                     Thread.sleep(1000);
                     System.out.println(text.yourMessage() + userMessage);
-                    System.out.println(text.yourDecrypt() + messageDecrypt.getDecryptMessage(userMessage)); // +DECRYPT!!!
+                    System.out.println(text.yourDecrypt() + messageDecrypt.getDecryptedMessage());
                     Thread.sleep(1000);
-                    System.out.println(text.trueKey() + messageDecrypt.getDecryptKey(userKey));
+                    System.out.println(text.trueKey() + messageDecrypt.getDecryptKey());
                     isValid = true;
                 }
                 default -> {

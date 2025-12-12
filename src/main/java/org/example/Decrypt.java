@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class Decrypt {
     private int key;
+    private StringBuilder decryptedMessage;
 
     public Decrypt(String userMessage, String userKey) {
-        decryptKey(userKey);
-        decryptMessage(userMessage);
+        this.key = decryptKey(userKey);
+        this.decryptedMessage = decryptMessage(userMessage);
     }
 
     private int decryptKey(String userKey) {
@@ -19,7 +20,7 @@ public class Decrypt {
             this.key = 0;
         }
 
-        return key;
+        return this.key;
     }
 
     private StringBuilder decryptMessage(String userMessage) {
@@ -73,11 +74,11 @@ public class Decrypt {
         return decryptMessage;
     }
 
-    public int getDecryptKey(String userKey) {
-        return decryptKey(userKey);
+    public int getDecryptKey() {
+        return this.key;
     }
 
-    public StringBuilder getDecryptMessage(String userMessage) {
-        return decryptMessage(userMessage);
+    public StringBuilder getDecryptedMessage() {
+        return this.decryptedMessage;
     }
 }

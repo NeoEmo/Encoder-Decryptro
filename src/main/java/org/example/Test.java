@@ -25,4 +25,20 @@ public class Test {
     }
 }
 
+class TestDecrypt {
+    public static void main(String[] args) {
+        System.out.println("Тест расшифровки...");
 
+        // Тестовые данные
+        String encrypted = "Фхнжйч";  // "Привет" с ROT5
+        String key = "Dt58tM6430u9071";  // ключ с цифрой 5
+
+        System.out.println("Зашифровано: " + encrypted);
+        System.out.println("Ключ: " + key);
+
+        Decrypt decryptor = new Decrypt(encrypted, key);
+
+        System.out.println("Расшифровано: " + decryptor.getDecryptedMessage());
+        System.out.println("Ключ смещения: " + decryptor.getDecryptKey());
+    }
+}
